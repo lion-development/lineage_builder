@@ -24,6 +24,7 @@ jobs:
         chatId: ${{ secrets.TELEGRAM_TO }}
         botToken: ${{ secrets.TELEGRAM_TOKEN }}
         jobStatus: ${{ job.status }}
+        skipSuccess: false
       # Check-out in order to access the repository's files.
     - name: Check-out to repository
       uses: actions/checkout@v4    
@@ -54,6 +55,7 @@ jobs:
         chatId: ${{ secrets.TELEGRAM_TO }}
         botToken: ${{ secrets.TELEGRAM_TOKEN }}
         jobStatus: ${{ job.status }}
+        skipSuccess: false
     - name: Find output file
       run: |
         mv */*.zip .
