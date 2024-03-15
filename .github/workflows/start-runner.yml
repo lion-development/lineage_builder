@@ -33,12 +33,12 @@ jobs:
 
     - name: Run crave devspace
       run: |
-        crave devspace -- "if tmux has-session -t y17ltebuilds; then 
-          tmux kill-session -t y17ltebuilds; 
+        crave devspace -- "if tmux has-session -t lion-dev; then 
+          tmux kill-session -t lion-dev; 
         else 
-          tmux kill-session -t y17ltebuilds || true
-          tmux new-session -d -s y17ltebuilds 
-          tmux send-keys -t y17ltebuilds './y17ltebuilds/run.sh' Enter 
+          tmux kill-session -t lion-dev || true
+          tmux new-session -d -s lion-dev 
+          tmux send-keys -t lion-dev './lion-dev/run.sh' Enter 
           echo "Runner Started"
         fi
         rm -rf /crave-devspaces/.repo || true"

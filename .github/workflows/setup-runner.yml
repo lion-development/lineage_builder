@@ -1,12 +1,12 @@
 #Needs to be run once only!
-name: Needs to be run once only! Running again leads to reset
+name: Setup Runner
 
 on:
   workflow_dispatch:
     inputs:
         GITHUB_REPO:
             description: 'Repository'
-            default: 'a57y17lte-dev/lineage_builder'
+            default: 'lion-development/lineage_builder'
             required: true
         RUNNER_TOKEN:
             description: 'This is the runner token, not PAT'
@@ -43,13 +43,12 @@ jobs:
 
     - name: Run crave devspace
       run: |
-        crave devspace -- "rm -rf y17ltebuilds ~/actions-runner || true
-        curl https://raw.githubusercontent.com/sounddrill31/Install-GithubActions-Runner/a57y17lte-dev/fetch-latest-zip.sh | bash
-        cd y17ltebuilds
+        crave devspace -- "rm -rf lion-dev ~/actions-runner || true
+        curl https://raw.githubusercontent.com/sounddrill31/Install-GithubActions-Runner/lion-dev/fetch-latest-zip.sh | bash
+        cd lion-dev
         if [[ "${{ inputs.RUNNER_TOKEN }}" == "github_pat_*" ]]; then
           echo "PAT does not work!"
         else
             echo "Runner token found"
         fi
-         cd y17ltebuilds
          ./config.sh --unattended --url "https://github.com/${{ inputs.GITHUB_REPO }}" --token "${{ inputs.RUNNER_TOKEN }}""

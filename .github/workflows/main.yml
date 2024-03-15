@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 jobs:
   test:
-    name: Build LineageOS 21 using foss.crave.io
+    name: Build LineageOS using foss.crave.io
 
     runs-on: self-hosted
 
