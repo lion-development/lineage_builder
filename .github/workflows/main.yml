@@ -25,14 +25,14 @@ jobs:
         rm -rf tester || true
         mkdir tester
         cd tester
-        repo init -u https://github.com/LineageOS/android.git -b lineage-21.0 --git-lfs
-        git clone https://github.com/a57y17lte-dev/local_manifest.git --depth 1 -b main .repo/local_manifests && \
+        repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --git-lfs --depth=1 && \
+        git clone https://github.com/IMYdev/local_manifest.git --depth 1 -b main .repo/local_manifests && \
         timeout 1m repo sync --force-sync || { exit_code=$?; [ $exit_code -eq 124 ] || (echo "Error: Process failed with exit code $exit_code"; exit $exit_code); }
       timeout-minutes: 10    
     - name: Exports
       run: |
         export BUILD_HOSTNAME=crave
-        export BUILD_USERNAME=a57y17lte-dev
+        export BUILD_USERNAME=lion-development
     - name: Run Script
       run: bash build.sh
       # Only reach this when the user killed the workflow.
@@ -58,6 +58,6 @@ jobs:
         name: LineageOS-${{ github.run_id }}
         tag_name: ${{ github.run_id }}
         body: |
-          Target: LineageOS 21 for a57y17lte
+          Target: LineageOS 21 for Lion
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

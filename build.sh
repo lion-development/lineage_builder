@@ -19,7 +19,7 @@ else
 fi
 
 # Set Crave to build using LineageOS 21 as base
-repo init -u https://github.com/LineageOS/android.git -b lineage-21.0 --git-lfs
+repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --git-lfs --depth=1
 
 # Install crave if running outside devspace
 if [ "${DCDEVSPACE}" == "1" ]; then
@@ -39,13 +39,13 @@ echo "Triggering build!"
 echo "Build Queued!"
 crave run --no-patch -- "rm -rf .repo/local_manifests/
 # Clone local_manifests repository
-git clone https://github.com/a57y17lte-dev/local_manifest.git .repo/local_manifests -b main
+git clone https://github.com/IMYdev/local_manifest.git --depth 1 -b main .repo/local_manifests
 # Sync the repositories
 repo sync -c -j\$(nproc --all) --force-sync --no-clone-bundle --no-tags
 # Set up build environment
 source build/envsetup.sh
 # Lunch configuration
-lunch lineage_a5y17lte-eng
+lunch lineage_X6816-eng
 make installclean
 m bacon"
 
