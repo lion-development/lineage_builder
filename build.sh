@@ -41,7 +41,7 @@ crave run --no-patch -- "rm -rf .repo/local_manifests/
 # Clone local_manifests repository
 git clone https://github.com/IMYdev/local_manifest.git --depth 1 -b main .repo/local_manifests
 # Sync the repositories
-repo sync -c -j\$(nproc --all) --force-sync --no-clone-bundle --no-tags
+/opt/crave/resync.sh
 # Set up build environment
 source build/envsetup.sh
 # Lunch configuration
