@@ -38,6 +38,8 @@ fi
 echo "Triggering build!"
 echo "Build Queued!"
 crave run --no-patch -- "rm -rf .repo/local_manifests/
+# Initialize our Manifest
+repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --git-lfs --depth=1
 # Clone local_manifests repository
 git clone https://github.com/IMYdev/local_manifest.git --depth 1 -b main .repo/local_manifests
 # Sync the repositories
