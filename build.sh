@@ -19,7 +19,7 @@ else
 fi
 
 # Set Crave to build using LineageOS 20 as base
-repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --git-lfs --depth=1
+repo init -u https://github.com/accupara/los20.git -b lineage-20.0 --git-lfs --depth=1
 
 # Install crave if running outside devspace
 if [ "${DCDEVSPACE}" == "1" ]; then
