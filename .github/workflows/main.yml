@@ -9,6 +9,14 @@ jobs:
     runs-on: self-hosted
 
     steps:
+    - name: Telegram Notification
+      continue-on-error: true
+      uses: xinthink/action-telegram@v1.1
+      with:
+        chatId: ${{ secrets.TELEGRAM_TO }}
+        botToken: ${{ secrets.TELEGRAM_TOKEN }}
+        jobStatus: "Build Started"
+        skipSuccess: false
     - name: Cleanup
       run: rm -rf * /crave-devspaces/Lineage20
     - name: Create workspace
