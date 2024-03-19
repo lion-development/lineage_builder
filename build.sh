@@ -18,7 +18,7 @@ else
     echo "Repo already installed."
 fi
 
-# Set Crave to build using LineageOS 21 as base
+# Set Crave to build using LineageOS 20 as base
 repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --git-lfs --depth=1
 
 # Install crave if running outside devspace

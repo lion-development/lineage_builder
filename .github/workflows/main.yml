@@ -10,43 +10,37 @@ jobs:
 
     steps:
     - name: Cleanup
-      run: rm -rf *
+      run: rm -rf * /crave-devspaces/Lineage20
     - name: Create workspace
-      run: mkdir LineageOS21
+      run: mkdir -p /crave-devspaces/Lineage20
       continue-on-error: true
     - name: Enter Workspace
-      run: cd LineageOS21
+      run: cd /crave-devspaces/Lineage20
       continue-on-error: true
-    - name: Telegram Notification
-      continue-on-error: true
-      uses: xinthink/action-telegram@v1.1
-      with:
-        chatId: ${{ secrets.TELEGRAM_TO }}
-        botToken: ${{ secrets.TELEGRAM_TOKEN }}
-        jobStatus: ${{ job.status }}
-        skipSuccess: false
-      # Check-out in order to access the repository's files.
+        # Check-out in order to access the repository's files.
     - name: Check-out to repository
-      uses: actions/checkout@v4    
+      uses: actions/checkout@v4 
     - name: Test Local Manifests
       run: |
+        cd /crave-devspaces/Lineage20
         rm -rf tester || true
         mkdir tester
         cd tester
         repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --git-lfs --depth=1 && \
         git clone https://github.com/IMYdev/local_manifest.git --depth 1 -b main .repo/local_manifests && \
         timeout 1m repo sync --force-sync || { exit_code=$?; [ $exit_code -eq 124 ] || (echo "Error: Process failed with exit code $exit_code"; exit $exit_code); }
+        rm -rf .repo
       timeout-minutes: 10    
     - name: Exports
       run: |
-        export BUILD_HOSTNAME=crave
+        export BUILD_HOSTNAME=crave #Todo: export it to github env
         export BUILD_USERNAME=lion-development
     - name: Run Script
-      run: bash build.sh
+      run: cp build.sh /crave-devspaces/Lineage20; cd /crave-devspaces/Lineage20; bash build.sh
       # Only reach this when the user killed the workflow.
     - name: Execute if the job is cancelled
       if: ${{ cancelled() }}
-      run: crave stop --all
+      run: cd /crave-devspaces/Lineage20; crave stop --all
     - name: Telegram Notification
       if: ${{ success() || cancelled() || failure() }}
       continue-on-error: true
@@ -58,7 +52,7 @@ jobs:
         skipSuccess: false
     - name: Find output file
       run: |
-        mv */*.zip .
+        mv cd /crave-devspaces/Lineage20/*/*.zip .
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
       with:
@@ -67,6 +61,6 @@ jobs:
         name: LineageOS-${{ github.run_id }}
         tag_name: ${{ github.run_id }}
         body: |
-          Target: LineageOS 21 for Lion
+          Target: LineageOS 20 for Lion
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
